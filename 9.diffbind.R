@@ -6,9 +6,6 @@ library(tidyverse)
 
 
 # reading in the samples 
-pdf(file = "~/scratch/diffbind/correlation.pdf", width = 8, height = 11) # defaults to 7 x 7 inches
-dba.plotHeatmap(placenta_analyse, contrast=1, correlations=TRUE, attributes=DBA_CONDITION)
-dev.off()
 placenta <- dba(sampleSheet='~/diff_sample_sheet.csv')
 print ("Counting reads...")
 # counting reads

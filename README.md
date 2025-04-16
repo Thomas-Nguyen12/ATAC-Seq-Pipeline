@@ -29,7 +29,7 @@ There are five required parameters for the script to be ran.
 5. -o = output directory
 
 
-The script can be ran from terminal using ``` {bash, eval=FALSE} bash <path to script>/atac_pipeline.sh -i <input directory> -o <output directory> -s <sample sheet> -f <sample filename> -r <reference genome> ``` 
+The script can be ran from terminal using ``` {bash, eval=FALSE} bash <path to script>/atac_pipeline.sub -i <input directory> -o <output directory> -s <sample sheet> -f <sample filename> -r <reference genome> ``` 
 
 # References
 
