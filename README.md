@@ -29,8 +29,13 @@ There are five required parameters for the script to be ran.
 5. -o = output directory
 
 
-The script can be ran from terminal using ``` {bash, eval=FALSE} bash <path to script>/atac_pipeline.sub -i <input directory> -o <output directory> -s <sample sheet> -f <sample filename> -r <reference genome> ``` 
+The script can be ran from terminal using
+``` bash <path to script>/atac_pipeline.sh -i <input directory> -o <output directory> -s <sample sheet> -f <sample filename> -r <reference genome> ``` 
 
+If you have a SLURM manager in a HPC environment, you can execute the script using a submission script. For example: _run_script.sub_:
+```sbatch run_script.sub```
+
+Where _run_script.sub_ contains the above code in the previous example
 # References
 
 
