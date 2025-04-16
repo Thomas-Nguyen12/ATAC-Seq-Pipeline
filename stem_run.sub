@@ -1,0 +1,22 @@
+#!/bin/bash
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=wmp21vtu@uea.ac.uk
+#SBATCH -p compute-64-512
+#SBATCH --time=7-00:00
+#SBATCH --mem=400G
+#SBATCH --job-name=stem_run
+#SBATCH -o stem_run-%j.out
+#SBATCH -e stem_run-%j.err
+
+# THis will run all test samples
+
+in_dir=/gpfs/home/wmp21vtu/scratch/atac
+out_dir=/gpfs/home/wmp21vtu/scratch/atac/test_run
+sample_sheet=/gpfs/home/wmp21vtu/diff_sample_sheet.csv
+reference=/gpfs/home/wmp21vtu/scratch/reference_genome_hg38_86/Homo_sapiens.GRCh38.dna.primary_assembly.fa
+for i in {7..9}
+do
+	bash /gpfs/home/wmp21vtu/pipeline/atac_seq/atac_pipeline.sh -i $in_dir -o $out_dir -r $reference -s $sample_sheet -f SRR1938381${i}
+done
+
+
