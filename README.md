@@ -14,7 +14,7 @@ Several pipelines incorporate various tools and libraries for end-to-end analysi
 
 The workflow has two stages (Figure 2). The first is a quality control preprocessing stage that generates ATAC-Peaks and bigwig files for visualisation in a genome browser. The second uses DiffBind (Rory Stark<Rory.Stark@Cruk.Cam.Ac.Uk>, 2017) to interrorgate the cell-type differences. 
 
-<img width="457" alt="Screenshot 2025-04-17 at 13 21 21" src="https://github.com/user-attachments/assets/2bf93d83-18a5-47ec-a49c-94f28986704c" />
+<img width="457" alt="Screenshot 2025-04-17 at 13 21 21" src="https://github.com/user-attachments/assets/2bf93d83-18a5-47ec-a49c-94f28986704c"/>
 _Figure 2: Schematic of ATAC-Seq pipeline. (A) Paired-end sequenced samples are inputted into a preprocessing script that cleans and produces peaksets and bigwig files for visualisation. (B) Using a user-provided sample sheet,  a second script applies DiffBind towards each sample peakset and contrasts them based on their cell-type (made using Biorender)_
 
 
