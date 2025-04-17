@@ -57,6 +57,10 @@ If you have a SLURM manager in a HPC environment, you can execute the script usi
 
 Where _run_atac_pipeline.sub_ contains the above code in the previous example
 
+# Acknowledgements
+I would like to thank David Monk, my primary supervisor, and Leighton Folkes, my mentor in the field of Bioinformatics for their support in this work
+
+
 # References
 Angarica, V.E. and Del Sol, A. (2017) ‘Bioinformatics Tools for Genome-Wide Epigenetic Research’, Advances in experimental medicine and biology, 978, pp. 489–512. Available at: https://doi.org/10.1007/978-3-319-53889-1_25.
 
