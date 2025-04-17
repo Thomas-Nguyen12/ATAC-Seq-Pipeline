@@ -1,7 +1,9 @@
-# ATAC-Seq-Pipeline
-This project aims to create a pipeline for Differential Chromatin Accessibility analysis using ATAC-Seq. 
+# ATAC-Seq-Pipeline Overview
+This project aims to create a pipeline for ATAC-Seq Differential Chromatin Accessibility analysis as part of my MScR in Biomolecular Science (Bioinformatics). This project uses both UNIX and R scripting languages depending on the tools/packages required. Hopefully, this tool will be useful to those needing Bioinformatic analysis of their ATAC-Seq experiment.
 
-ATAC-Seq is a method to identify regions of open chromatin (DNA + histone molecules) across the genome. 
+# Introduction
+
+ATAC-Seq is a method to identify regions of open chromatin (DNA + histone molecules) across the genome. ATAC-Seq has been involved in studies investigating transcriptional regulators within autism (Fazel Darbandi et al., 2024) and Enhancer elements in the Placenta (Abdulghani, Jain and Tuteja, 2019), and as such, has major applications towards understanding development and disease 
 
 ![image](https://github.com/user-attachments/assets/6b1cd157-c989-42ed-996e-b6d9a320b5a6)
 _Figure 1: ATAC-Seq schematic. Tn5 Tranposases cleave open DNA and simultaneously attach barcode sequencing primers in a process known as tagmentation. DNA libraries are then sequenced using next-generation sequencing technologies such as Illumina and subject to Bioinformatic Analysis (Dillinger, 2021)_
@@ -15,6 +17,7 @@ Several pipelines incorporate various tools and libraries for end-to-end analysi
 The workflow has two stages (Figure 2). The first is a quality control preprocessing stage that generates ATAC-Peaks and bigwig files for visualisation in a genome browser. The second uses DiffBind (Rory Stark<Rory.Stark@Cruk.Cam.Ac.Uk>, 2017) to interrorgate the cell-type differences. 
 
 <img width="457" alt="Screenshot 2025-04-17 at 13 21 21" src="https://github.com/user-attachments/assets/2bf93d83-18a5-47ec-a49c-94f28986704c"/>
+
 _Figure 2: Schematic of ATAC-Seq pipeline. (A) Paired-end sequenced samples are inputted into a preprocessing script that cleans and produces peaksets and bigwig files for visualisation. (B) Using a user-provided sample sheet,  a second script applies DiffBind towards each sample peakset and contrasts them based on their cell-type (made using Biorender)_
 
 
