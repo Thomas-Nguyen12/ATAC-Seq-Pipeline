@@ -56,12 +56,20 @@ Where _run_atac_pipeline.sub_ contains the above code in the previous example
 
 # References
 Angarica, V.E. and Del Sol, A. (2017) ‘Bioinformatics Tools for Genome-Wide Epigenetic Research’, Advances in experimental medicine and biology, 978, pp. 489–512. Available at: https://doi.org/10.1007/978-3-319-53889-1_25.
+
 Buenrostro, J.D. et al. (2013) ‘Transposition of native chromatin for fast and sensitive epigenomic profiling of open chromatin, DNA-binding proteins and nucleosome position’, Nature Methods, 10(12), pp. 1213–1218. Available at: https://doi.org/10.1038/nmeth.2688.
+
 Chang, P. et al. (2018) ‘Computational Methods for Assessing Chromatin Hierarchy’, Computational and Structural Biotechnology Journal, 16, pp. 43–53. Available at: https://doi.org/10.1016/j.csbj.2018.02.003.
+
 Dillinger, S. (2021) What is ATAC-Seq & How Does it Work?, www.activemotif.com. Available at: https://www.activemotif.com/blog-atac-seq.
+
 Giresi, P.G. et al. (2007) ‘FAIRE (Formaldehyde-Assisted Isolation of Regulatory Elements) isolates active regulatory elements from human chromatin’, Genome Research, 17(6), pp. 877–885. Available at: https://doi.org/10.1101/gr.5533506.
+
 Riva, S.G. et al. (2023) ‘CATCH-UP: A High-Throughput Upstream-Pipeline for Bulk ATAC-Seq and ChIP-Seq Data’, Journal of Visualized Experiments [Preprint], (199). Available at: https://doi.org/10.3791/65633.
+
 Rory Stark<Rory.Stark@Cruk.Cam.Ac.Uk>, G.B.C. (2017) ‘DiffBind’. Bioconductor. Available at: https://doi.org/10.18129/B9.BIOC.DIFFBIND.
+
 Smith, J.P. et al. (2021) ‘PEPATAC: an optimized pipeline for ATAC-seq data analysis with serial alignments’, NAR genomics and bioinformatics, 3(4). Available at: https://doi.org/10.1093/nargab/lqab101.
+
 Song, L. and Crawford, G.E. (2010) ‘DNase-seq: A High-Resolution Technique for Mapping Active Gene Regulatory Elements across the Genome from Mammalian Cells’, Cold Spring Harbor Protocols, 2010(2), p. pdb.prot5384-pdb.prot5384. Available at: https://doi.org/10.1101/pdb.prot5384.
 
