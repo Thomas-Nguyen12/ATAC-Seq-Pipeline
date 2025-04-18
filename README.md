@@ -27,7 +27,7 @@ This can be split into two major stages (Figure 2). The first is a quality contr
 
 <img width="577" alt="Screenshot 2025-04-18 at 15 15 49" src="https://github.com/user-attachments/assets/9492946f-924f-4fe2-bfb0-05ac6ae8f99f" />
 
-_Figure 2: Schematic of ATAC-Seq pipeline. (A) Paired-end sequenced samples are inputted into a preprocessing script that cleans and produces peaksets and bigwig files for visualisation. (B) Using a user-provided sample sheet,  a second script applies DiffBind towards each sample peakset and contrasts them based on their cell-type (made using Biorender)_
+_Figure 2: Schematic of ATAC-Seq pipeline. (A) Paired-end sequenced samples are inputted into a preprocessing script that cleans and produces peaksets (narrowPeak) for further analysis and bigwig files for visualisation in a genome browser. (B) Using a user-provided sample sheet,  a second script applies DiffBind towards each sample peakset and contrasts them based on their cell-type (made using Biorender)_
 
 
 
