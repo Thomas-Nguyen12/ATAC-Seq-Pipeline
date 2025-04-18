@@ -39,7 +39,7 @@ _Figure 2: Schematic of ATAC-Seq pipeline. (A) Paired-end sequenced samples are 
    
 2. Make sure you have a reference genome installed in .fa format
    
-3. A sample-sheet (in .csv format) is required with the columns: SampleID, Tissue, Condition, Replicate, Factor. This is for the diffbind_pipeline.R script to know which samples to look for and compare. For more information, visit this website: https://www.rdocumentation.org/packages/DiffBind/versions/2.0.2/topics/dba.peakset.
+3. A sample-sheet (in .csv format) is required with the columns: SampleID, should be the same as your sample name; Tissue, the tissue used; Condition the different conditions of your experiment; Replicate, the number of replicates of your experiment; Factor, used to separate groups. This is for the diffbind_pipeline.R script to know which samples to look for and compare. For more information, visit this website: https://www.rdocumentation.org/packages/DiffBind/versions/2.0.2/topics/dba.peakset.
 
 4. The program will use the ENCODE blacklist regions HG38v2 co-ordinates to filter problematic regions. For more information, look here: https://zenodo.org/records/1491733
 
