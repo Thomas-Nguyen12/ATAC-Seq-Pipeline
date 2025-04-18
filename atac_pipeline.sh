@@ -40,7 +40,22 @@ date
 
 
 echo "----------------------------"
+# installing the ENCODE blacklist regionsi
+echo "Checking if the ENCODE blacklist regions are installed in your input directory..." 
+cd $input_directory
+directory=Boyle-Lab-Blacklist-f4a45ab
+if [ ! -d "$DIRECTORY" ]; then
+	echo "$DIRECTORY does not exist. Installing ENCODE blacklist regions..."
+	echo "This program will use the HG38v2 co-ordinates..."
+	curl https://zenodo.org/records/1491733/files/Boyle-Lab/Blacklist-v2.0.zip?download=1 --output ENCODE.zip
+	unzip ENCODE.zip
+else
+	echo "ECNODE regions does exist. Continuing on..."
 
+  
+fi
+
+encode_blacklist_regions=${input_directory}/Boyle-Lab-Blacklist-f4a45ab/lists/hg38-blacklist.v2.bed.gz
 
 
 ## 1.1: htstream preprocessing
@@ -107,7 +122,6 @@ alignmentSieve -b ${output_directory}/${sample_name}_sorted.bam -o ${output_dire
 
 ## 3.3 Removing the ENCODE blacklist regions
 echo "Removing the ENCODE blacklist regions..."
-encode_blacklist_regions=/gpfs/home/wmp21vtu/scratch/atac/encode_blacklist_regions/Boyle-Lab-Blacklist-f4a45ab/lists/hg38-blacklist.v2.bed.gz
 
 module add bedtools/2.31.1
 bedtools intersect -a ${output_directory}/${sample_name}_alignmentSieve.bam -b $encode_blacklist_regions -v > ${output_directory}/${sample_name}_without_blacklist.bam
@@ -143,6 +157,7 @@ count=0
 sample_sheet_length=$(wc -l < $sample_sheet)
 while IFS= read -r sample; do
     if find "$output_directory" -name "*${sample}_peak_peaks.narrowPeak" | grep -q .; then
+	
         echo "Peakset File found for $sample"
         ((count++))
     else
