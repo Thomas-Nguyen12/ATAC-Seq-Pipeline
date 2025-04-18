@@ -48,13 +48,15 @@ _Figure 2: Schematic of ATAC-Seq pipeline. (A) Paired-end sequenced samples are 
 ## Installation
 All required packages and libraries can be installed via the **Requirements.txt** file. For example
 
-1. Create an anaconda environment
+1. Clone the repository
+
+2. Create an anaconda environment
 ``` conda create -n <environment> ```
 
-2. Activate the environment
+3. Activate the environment
 ``` conda activate <environment> ```
 
-3. Install the libraries
+4. Install the libraries
 
 ``` conda install -r requirements.txt  ```
 
