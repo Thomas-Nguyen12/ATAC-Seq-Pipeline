@@ -14,7 +14,16 @@ To date, however, there are few tools specifically designed for ATAC-Seq analysi
 
 Several pipelines incorporate various tools and libraries for end-to-end analysis, such as PEPATAC (Smith et al., 2021) and CATCH-UP (Riva et al., 2023) that have varying focuses on serial alignments or bulk samples. However, none of them account for cell-type differences in chromatin accessibility. Consequently, I have developed a pipeline for paired-end sequencing data that creates ATAC peaksets and assesses the chromatin accessibility between two cell-types. Using this pipeline, users can investigate the functional implications of where DNA is differentially open or closed.
 
-The workflow has two stages (Figure 2). The first is a quality control preprocessing stage that generates ATAC-Peaks and bigwig files for visualisation in a genome browser. The second uses DiffBind (Rory Stark<Rory.Stark@Cruk.Cam.Ac.Uk>, 2017) to interrorgate the cell-type differences. 
+This workflow has seven steps:
+1. Importing data
+2. quality control using htstream v1.4.1
+3. alignment using bwa mem v0.7.17
+4. alignment shifting using deeptools v3.5.6
+5. Removal of the ENCODE blacklist regions using bedtools v2.31.1
+6. Peak calling using MACS3 v3.0.2
+7. Differential chromatin analysis using DiffBind v3.16
+
+This can be split into two major stages (Figure 2). The first is a quality control preprocessing stage that generates ATAC-Peaks and bigwig files for visualisation in a genome browser. The second uses DiffBind (Rory Stark<Rory.Stark@Cruk.Cam.Ac.Uk>, 2017) to interrorgate the cell-type differences. 
 
 <img width="577" alt="Screenshot 2025-04-18 at 15 15 49" src="https://github.com/user-attachments/assets/9492946f-924f-4fe2-bfb0-05ac6ae8f99f" />
 
@@ -23,6 +32,16 @@ _Figure 2: Schematic of ATAC-Seq pipeline. (A) Paired-end sequenced samples are 
 
 
 # How to use: 
+
+## Prerequisites and Caveats
+
+1. This script will only accept paired-end sequencing folders (in fastq.gz format)
+   
+2. Make sure you have a reference genome installed in .fa format
+   
+3. A sample-sheet (in .csv format) is required with the columns: SampleID, Tissue, Condition, Replicate, Factor. This is for the diffbind_pipeline.R script to know which samples to look for and compare. For more information, visit this website: https://www.rdocumentation.org/packages/DiffBind/versions/2.0.2/topics/dba.peakset.
+
+4. The program will use the ENCODE blacklist regions HG38v2 co-ordinates to filter problematic regions. For more information, look here: https://zenodo.org/records/1491733
 
 ## Installation
 All required packages and libraries can be installed via the **Requirements.txt** file. For example
@@ -43,7 +62,7 @@ All required packages and libraries can be installed via the **Requirements.txt*
 There are five required parameters for the script to be ran. 
 1. -s = sample sheet (in .csv format)
 2. -f = sample filename
-3. -r = reference genome (in .fa format)
+3. -r = reference genome (the full path in .fa format)
 4. -i = input directory
 5. -o = output directory
 
