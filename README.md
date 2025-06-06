@@ -39,22 +39,24 @@ _Figure 2: Schematic of ATAC-Seq pipeline. (A) Paired-end sequenced samples are 
    
 2. Make sure you have a reference genome installed in .fa format
    
-3. A sample-sheet (in .csv format) is required with the columns: SampleID, Tissue, Condition, Replicate, Factor. This is for the diffbind_pipeline.R script to know which samples to look for and compare. For more information, visit this website: https://www.rdocumentation.org/packages/DiffBind/versions/2.0.2/topics/dba.peakset.
+3. A sample-sheet (in .csv format) is required with the columns: SampleID, should be the same as your sample name; Tissue, the tissue used; Condition the different conditions of your experiment; Replicate, the number of replicates of your experiment; Factor, used to separate groups. This is for the diffbind_pipeline.R script to know which samples to look for and compare. For more information, visit this website: https://www.rdocumentation.org/packages/DiffBind/versions/2.0.2/topics/dba.peakset.
 
 4. The program will use the ENCODE blacklist regions HG38v2 co-ordinates to filter problematic regions. For more information, look here: https://zenodo.org/records/1491733
 
-5. In testing the code, I used bwa v0.07.17. However, i placed bwa v0.7.19 into the requirements file due to compatability issues. Both versions produce identical alignments as confirmed by the creator, Heng Li (https://github.com/lh3/bwa/releases)
+5. In creating and testing the code, I used bwa v0.07.17. However, i placed bwa v0.7.19 into the requirements file due to compatability issues. Both versions produce identical alignments as confirmed by the creator, Heng Li (https://github.com/lh3/bwa/releases)
 
 ## Installation
 All required packages and libraries can be installed via the **Requirements.txt** file. For example
 
-1. Create an anaconda environment
+1. Clone the repository
+
+2. Create an anaconda environment
 ``` conda create -n <environment> ```
 
-2. Activate the environment
+3. Activate the environment
 ``` conda activate <environment> ```
 
-3. Install the libraries
+4. Install the libraries
 
 ``` conda install -r requirements.txt  ```
 
@@ -79,7 +81,7 @@ If you have a SLURM manager in a HPC environment, you can execute the script usi
 Where _run_atac_pipeline.sub_ contains the above code in the previous example
 
 # Acknowledgements
-I would like to thank David Monk, my primary supervisor, and Leighton Folkes, my mentor in the field of Bioinformatics for their support in this work
+I would like to thank my Primary Supervisor, Professor David Monk and my Bioinformatics mentor, Leighton Folkes, for their support in this work
 
 
 # References
