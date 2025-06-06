@@ -425,7 +425,6 @@ samtools=1.21=h96c455f_1
 scikit-learn=1.6.1=py311h57cc02b_0
 scipy=1.15.2=py311h8f841c2_0
 sed=4.8=he412f7d_0
-setuptools=75.8.0=pyhff2d567_0
 simdjson=3.12.3=h84d6215_0
 six=1.17.0=pyhd8ed1ab_0
 snowballstemmer=2.2.0=pyhd8ed1ab_0
