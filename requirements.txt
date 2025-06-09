@@ -163,6 +163,7 @@ libmamba=2.2.0=h8dd7f75_0
 libnghttp2=1.64.0=h161d5f1_0
 libnsl=2.0.1=hd590300_0
 libopenblas=0.3.29=ha39b09d_0
+libopenssl-static=3.5.0=hb9d3cd8_1
 libpng=1.6.47=h943b412_0
 libsolv=0.7.33=h7955e40_0
 libsqlite=3.50.1=hee588c1_0
@@ -186,6 +187,7 @@ mamba=2.2.0=had4a41a_0
 markupsafe=3.0.2=py312h178313f_1
 matplotlib-base=3.10.3=py312hd3ec401_0
 munkres=1.1.4=pyh9f0ad1d_0
+mysql-connector-c=6.1.11=h659d440_1008
 narwhals=1.41.1=pyhe01879c_0
 ncurses=6.5=h2d0b736_3
 nlohmann_json=3.11.3=he02047a_1
@@ -448,6 +450,7 @@ tktable=2.10=h3d55465_1
 toml=0.10.2=pyhd3eb1b0_0
 tomli=2.2.1=pyhd8ed1ab_1
 tzdata=2025b=h04d1e81_0
+ucsc-bigwigmerge=469=h664eb37_1
 unicodedata2=16.0.0=py312h66e93f0_0
 urllib3=2.4.0=pyhd8ed1ab_0
 wheel=0.45.1=py312h06a4308_0
