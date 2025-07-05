@@ -31,8 +31,8 @@ while getopts ':i:o:r:f:s:' OPTION; do
 	esac
 done
 
-echo "Start time: "
-date 
+start_time=$(date)
+echo "Start time: ${start_time}"
 
 echo "----- SETTINGS -----"
 echo "input directory --> ${input_directory}"
@@ -51,11 +51,18 @@ if [ ! -d "$DIRECTORY" ]; then
 	echo "This program will use the HG38v2 co-ordinates..."
 	curl https://zenodo.org/records/1491733/files/Boyle-Lab/Blacklist-v2.0.zip?download=1 --output ENCODE.zip
 	unzip ENCODE.zip
+	download_blacklist_exit_code=$?
+	if [ $download_blacklist_exit_code -ne 0 ]; then
+		echo "There was an error downloading the blacklist regions. Exiting..."
+		exit 1
+	fi
+
 else
 	echo "$DIRECTORY does exist. Continuing on..."
 
   
 fi
+
 
 encode_blacklist_regions=${input_directory}/Boyle-Lab-Blacklist-f4a45ab/lists/hg38-blacklist.v2.bed.gz
 
@@ -83,6 +90,12 @@ else
                     -f "${output_directory}/1.${sample_name}_SeqScreen"
 fi
 
+SeqScreener_exit_code=$?
+
+if [ $SeqScreener_exit_code -ne 0 ]; then 
+	echo "There was an error with the SeqScreener. Exiting... " 
+	exit 1
+fi
 
 
 
@@ -92,17 +105,58 @@ fi
 echo "SuperDeduper..."
 hts_SuperDeduper -1 "${output_directory}/1.${sample_name}_SeqScreen_R1.fastq.gz" -2 "${output_directory}/1.${sample_name}_SeqScreen_R2.fastq.gz" -e 250000 -f "${output_directory}/2.${sample_name}_SuperDeduper"
 
+
+SuperDeduper_exit_code=$?
+
+if [ $SuperDeduper_exit_code -ne 0 ]; then
+	echo "There was an error with the SuperDeduper. Exiting..." 
+	exit 1
+fi
+
+
 echo "Adapter Trimmer..."
 hts_AdapterTrimmer -1 "${output_directory}/2.${sample_name}_SuperDeduper_R1.fastq.gz" -2 "${output_directory}/2.${sample_name}_SuperDeduper_R2.fastq.gz" -p 4 -f "${output_directory}/3.${sample_name}_AdapterTrimmer"
+
+AdapterTrimmer_exit_code=$?
+if [ $AdapterTrimmer_exit_code -ne 0 ]; then
+	echo "There was an error with the Adapter Trimmer. Exiting..."
+	exit 1
+fi
+
 
 echo "Removing unknown nucleotides (NTrimmer)"
 hts_NTrimmer -1 "${output_directory}/3.${sample_name}_AdapterTrimmer_R1.fastq.gz" -2 "${output_directory}/3.${sample_name}_AdapterTrimmer_R2.fastq.gz" -f "${output_directory}/4.${sample_name}_NTrimmer"
 
+NTrimmer_exit_code=$?
+if [ $NTrimmer_exit_code -ne 0 ]; then
+	echo "There was an error with the NTrimmer. Exiting..." 
+	exit 1
+fi
+
+
+
 echo "Base Quality Trimming..."
 hts_QWindowTrim -1 "${output_directory}/4.${sample_name}_NTrimmer_R1.fastq.gz" -2 "${output_directory}/4.${sample_name}_NTrimmer_R2.fastq.gz" -q 20 -w 10 -f "${output_directory}/5.${sample_name}_QWindowTrim"
 
+QWindow_trim_exit_code=$?
+if [ $QWindow_trim_exit_code -ne 0 ]; then
+	echo "There was an error with the QWindowTrim. Exiting..." 
+	exit 1
+fi
+
+
+
+
 echo "Short Read Trimming..."
 hts_LengthFilter -1 "${output_directory}/5.${sample_name}_QWindowTrim_R1.fastq.gz" -2 "${output_directory}/5.${sample_name}_QWindowTrim_R2.fastq.gz" -n -m 50 -f "${output_directory}/6.${sample_name}_LengthFilter" 
+
+
+LengthFilter_exit_code=$?
+if [ $LengthFilter_exit_code -ne 0 ]; then
+	echo "There was an error with the LengthFilter. Exiting..." 
+	exit 1
+fi
+
 
 echo "Preprocessing Successful"	
 
@@ -125,10 +179,22 @@ else
     bwa index $reference -p ${output_directory}/bwa_index
 fi
 
+bwa_index_exit_code=$?
+if [ $bwa_index_exit_code -ne 0 ]; then
+	echo "There was an error with the bwa index. Check if Bwa indexes already exist in your output directory"
+	exit 1
+fi
+
+
 echo "Aligning the samples..."
 #What do the bwa indexes look like? 
 ## 2.2: BWA alignment (remember the path of the bwa index) 
 bwa mem ${output_directory}/bwa_index ${output_directory}/6.${sample_name}_LengthFilter_R1.fastq.gz ${output_directory}/6.${sample_name}_LengthFilter_R2.fastq.gz | samtools sort -o ${output_directory}/${sample_name}_sorted.bam
+bwa_mem_exit_code=$?
+if [ $bwa_mem_exit_code -ne 0 ]; then
+	echo "There was an error with the alignment. Exiting..." 
+	exit 1
+fi
 
 
 
@@ -139,19 +205,50 @@ bwa mem ${output_directory}/bwa_index ${output_directory}/6.${sample_name}_Lengt
 echo "indexing the samples for alignment Sieve..."
 samtools index ${output_directory}/${sample_name}_sorted.bam -o ${output_directory}/${sample_name}_sorted.bam.bai
 
+samtools_index_exit_code=$?
+if [ $samtools_index_exit_code -ne 0 ]; then 
+	echo "There was an error indexing the alignment file. Exiting..." 
+	exit 1
+fi
+
+
 
 ## 3.2 Shifting the alignments using AlignmentSieve
 echo "running alignment sieve..."
 alignmentSieve -b ${output_directory}/${sample_name}_sorted.bam -o ${output_directory}/${sample_name}_alignmentSieve.bam
+
+alignmentSieve_exit_code=$?
+if [ $alignmentSieve_exit_code -ne 0 ]; then
+	echo "There was an error with the alignmentSieve. Exiting..." 
+	exit 1
+fi
+
+
 
 ## 3.3 Removing the ENCODE blacklist regions
 echo "Removing the ENCODE blacklist regions..."
 
 bedtools intersect -a ${output_directory}/${sample_name}_alignmentSieve.bam -b $encode_blacklist_regions -v > ${output_directory}/${sample_name}_without_blacklist.bam
 
+bedtools_intersect_exit_code=$?
+
+if [ $bedtools_intersect_exit_code -ne 0 ]; then
+	echo "There was an error with removing the ENCODE blacklist regions. Exiting..." 
+	exit 1
+fi
+
+
+
 # Stage 4: Peak Calling using MACS3
 echo "Calling Peaks..."
 macs3 callpeak -t ${output_directory}/${sample_name}_without_blacklist.bam -f BAMPE -g hs -q 0.01 --outdir $output_directory --name ${sample_name}_peak
+
+macs3_exit_code=$?
+if [ $macs3_exit_code -ne 0 ]; then
+	echo "There was an error calling the Peak-Sets from the alignment files. Exiting..." 
+	exit 1
+fi
+
 
 ## calling BIGWIGS
 # include the bam files that are filtered (without the blacklist)
@@ -160,9 +257,22 @@ echo "creating bigwig files..."
 
 # I need to index the bam file first
 
-samtools index ${output_directory}/${sample_name}_without_blacklist.bam 
+samtools index ${output_directory}/${sample_name}_without_blacklist.bam
+samtools_index_bigwig_exit_code=$?
+
+if [ $samtools_index_bigwig_exit_code -ne 0 ]; then
+	echo "There was an error indexing the alignment file before creating the bigWig files. Exiting..." 
+	exit 1
+fi
+ 
 bamCoverage -b ${output_directory}/${sample_name}_without_blacklist.bam -o ${output_directory}/${sample_name}_bigwig.bw
 
+bamCoverage_exit_code=$?
+
+if [ $bamCoverage_exit_code -ne 0 ]; then
+	echo "There was an error creating the bigWig files. Exiting..." 
+	exit 1
+fi
 
 
 ## RUNNING DIFFBIND
@@ -195,7 +305,7 @@ done < <(awk -F',' 'NR>1 {print $1}' "$sample_sheet")
 # I can also include the total number of files as a pseudo-progress meter
 total_files=$(wc -l < ${sample_sheet}) 
  
-echo "Total files found: $count"
+echo "Total samples processed: $count out of $total_files"
 echo "${count} / ${total_files} complete" 
 # Check if all expected files exist
 if [ "$count" -eq "$sample_sheet_length" ]; then
