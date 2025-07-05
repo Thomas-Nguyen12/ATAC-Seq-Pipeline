@@ -450,7 +450,11 @@ tktable=2.10=h3d55465_1
 toml=0.10.2=pyhd3eb1b0_0
 tomli=2.2.1=pyhd8ed1ab_1
 tzdata=2025b=h04d1e81_0
+ucsc-bedgraphtobigwig=481=hdc0a859_0
 ucsc-bigwigmerge=469=h664eb37_1
+ucsc-bigwigtobedgraph=469=h664eb37_1
+ucsc-bigwigtowig=469=h664eb37_1
+ucsc-wigtobigwig=482=hdc0a859_0
 unicodedata2=16.0.0=py312h66e93f0_0
 urllib3=2.4.0=pyhd8ed1ab_0
 wheel=0.45.1=py312h06a4308_0
