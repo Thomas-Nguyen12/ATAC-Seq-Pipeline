@@ -2,6 +2,9 @@
 # I need to include an option to parse the samplesheet for diffbind
 # I can include a parameter that specifies which contrasts are wanted for DiffBind (I can also do this in the diffbind_pipeline.R script) 
 # If no contrast is specified, then contrast 1 is assumed 
+d=0
+
+
 
 while getopts ':i:o:r:f:s:' OPTION; do 
 
@@ -22,10 +25,17 @@ while getopts ':i:o:r:f:s:' OPTION; do
 		f)
 			sample_name="$OPTARG"
 			;;
+		d)
+			diffbind_enabled="$OPTARG"
+			if [[ $diffbind_enabled -ne 0 && $diffbind_enabled -ne 1 ]]; then 
+				echo "Error. <-d 0 = DiffBind DISABLED>... <-d 1 = DiffBind ENABLED>"
+				exit 1 
+			fi
+			;; 
 		?)
 			echo "This tool is used for Comprehensive Atac-Seq analysis..."
 			echo "This tool is designed for paired end fastq files..."
-			echo "Usage: $(basename $0) [-i input_directory] [-o output_directory] [-r Genome Reference PATH (including file name)] [-f sample filename (in csv format)] [-s sample sheet PATH]"
+			echo "Usage: $(basename $0) [-i input_directory] [-o output_directory] [-r Genome Reference PATH (including file name)] [-f sample filename (in csv format)] [-s sample sheet PATH] [-d enable_diffbind]"
 			exit 1 
 			;;
 	esac
@@ -309,8 +319,13 @@ echo "Total samples processed: $count out of $total_files"
 echo "${count} / ${total_files} complete" 
 # Check if all expected files exist
 if [ "$count" -eq "$sample_sheet_length" ]; then
-    echo "All files found. Starting DiffBind..."
-    Rscript /gpfs/home/wmp21vtu/pipeline/atac_seq/diffbind_pipeline.R "$sample_sheet" "$output_directory"
+    echo "All files processed. Proceeding..."
+    if [ $diffbind_enabled -eq 1 ]; then
+	
+	echo "DiffBind enabled. Executing..."	
+	Rscript /gpfs/home/wmp21vtu/pipeline/atac_seq/diffbind_pipeline.R "$sample_sheet" "$output_directory"
+    else
+        echo "DiffBind Disabled. Exiting..."
 else
     echo "Sample Sheet not ready for DiffBind..."
     echo "DiffBind Pending until all samples are processed"

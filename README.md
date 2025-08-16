@@ -69,16 +69,18 @@ There are five required parameters for the script to be ran.
 3. -r = reference genome (the full path in .fa format)
 4. -i = input directory
 5. -o = output directory
-
+6. -d = [OPTIONAL] enable DiffBind. (0 = Disabled, 1 = Enabled; DiffBind is disabled by Default) 
 
 The script can be ran from terminal using:
 
-``` bash <path to script>/atac_pipeline.sh -i <input directory> -o <output directory> -s <sample sheet> -f <sample filename> -r <reference genome> ``` 
+``` bash <path to script>/atac_pipeline.sh -i <input directory> -o <output directory> -s <sample sheet> -f <sample filename> -r <reference genome> -d <enable DESeq2>``` 
 
 If you have a SLURM manager in a HPC environment, you can execute the script using a submission script. For example: _run_atac_pipeline.sub_:
 ```sbatch run_atac_pipeline.sub```
 
 Where _run_atac_pipeline.sub_ contains the above code in the previous example
+
+
 
 # Acknowledgements
 I would like to thank my Primary Supervisor, Professor David Monk and my Bioinformatics mentor, Leighton Folkes, for their support in this work
