@@ -323,7 +323,8 @@ if [ "$count" -eq "$sample_sheet_length" ]; then
     if [ $diffbind_enabled -eq 1 ]; then
 	
 	echo "DiffBind enabled. Executing..."	
-	Rscript /gpfs/home/wmp21vtu/pipeline/atac_seq/diffbind_pipeline.R "$sample_sheet" "$output_directory"
+	# make sure that the file locations are correct
+	Rscript diffbind_pipeline.R "$sample_sheet" "$output_directory"
     else
         echo "DiffBind Disabled. Exiting..."
 else
