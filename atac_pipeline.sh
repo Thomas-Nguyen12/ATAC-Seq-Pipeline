@@ -225,7 +225,7 @@ fi
 
 ## 3.2 Shifting the alignments using AlignmentSieve
 echo "running alignment sieve..."
-alignmentSieve -b ${output_directory}/${sample_name}_sorted.bam -o ${output_directory}/${sample_name}_alignmentSieve.bam
+alignmentSieve -b ${output_directory}/${sample_name}_sorted.bam --ATACshift -o ${output_directory}/${sample_name}_alignmentSieve.bam
 
 alignmentSieve_exit_code=$?
 if [ $alignmentSieve_exit_code -ne 0 ]; then
