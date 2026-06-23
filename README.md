@@ -41,6 +41,19 @@ _Figure 2: Schematic of ATAC-Seq pipeline. (A) Paired-end sequenced samples are 
    
 3. A sample-sheet (in .csv format) is required with the columns: **SampleID**, should be the same as your sample name; **Tissue**, the tissue used; Condition the different conditions of your experiment; **Replicate**, the number of replicates of your experiment; **Factor**, used to separate groups. This is for the diffbind_pipeline.R script to know which samples to look for and compare. For more information, visit this website: https://www.rdocumentation.org/packages/DiffBind/versions/2.0.2/topics/dba.peakset.
 
+Here is an **example** of what your sample sheet **could look like**: 
+
+| SampleID      | Tissue           | Condition | Replicate | Factor   |
+|---------------|------------------|-----------|-----------|----------|
+| Strom_Ctrl_1  | Stromal          | Control   | 1         | CellType |
+| Strom_Ctrl_2  | Stromal          | Control   | 2         | CellType |
+| Strom_Treat_1 | Stromal          | Treated   | 1         | CellType |
+| Strom_Treat_2 | Stromal          | Treated   | 2         | CellType |
+| CTB_Ctrl_1    | Cytotrophoblast  | Control   | 1         | CellType |
+| CTB_Ctrl_2    | Cytotrophoblast  | Control   | 2         | CellType |
+| CTB_Treat_1   | Cytotrophoblast  | Treated   | 1         | CellType |
+| CTB_Treat_2   | Cytotrophoblast  | Treated   | 2         | CellType |
+
 4. The program will use the ENCODE blacklist regions HG38v2 co-ordinates to filter problematic regions. For more information, look here: https://zenodo.org/records/1491733
 
 5. In creating and testing the code, I used bwa v0.07.17. However, i placed bwa v0.7.19 into the requirements file due to compatability issues. Both versions produce identical alignments as confirmed by the creator, Heng Li (https://github.com/lh3/bwa/releases)
