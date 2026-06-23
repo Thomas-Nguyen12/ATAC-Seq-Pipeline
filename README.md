@@ -54,7 +54,7 @@ Here is an **example** of what your sample sheet **could look like**:
 | CTB_Treat_1   | Cytotrophoblast  | Treated   | 1         | CellType |
 | CTB_Treat_2   | Cytotrophoblast  | Treated   | 2         | CellType |
 
-4. The program will use the ENCODE blacklist regions HG38v2 co-ordinates to filter problematic regions. For more information, look here: https://zenodo.org/records/1491733
+4. The program will use the **ENCODE blacklist regions HG38v2 co-ordinates** to filter problematic regions. For more information, look here: https://zenodo.org/records/1491733
 
 5. In creating and testing the code, I used bwa v0.07.17. However, i placed bwa v0.7.19 into the requirements file due to compatability issues. Both versions produce identical alignments as confirmed by the creator, Heng Li (https://github.com/lh3/bwa/releases)
 
